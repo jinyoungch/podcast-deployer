@@ -1,0 +1,33 @@
+{
+  "name": "rss-deployer.lambda",
+  "version": "1.0.0",
+  "description": "A Lambda function to deploy an RSS feed to AWS S3 for podcast distribution",
+  "main": "src/index.mts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "format:code": "prettier --write --cache --no-editorconfig .",
+    "format:code:typescript": "prettier --write --cache --no-editorconfig \"**/*.{cts,ts,mts}\"",
+    "lint:typescript": "echo Linting all TypeScript... && eslint --ext cts,ts,mts --max-warnings 0 --cache --cache-location .eslintcache --cache-strategy content .",
+    "validate:formatting": "prettier --check --cache --no-editorconfig ."
+  },
+  "keywords": [],
+  "author": "Jin Young Choi",
+  "license": "MIT",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "aws-sdk": "^2.1692.0",
+    "node-lambda": "^1.3.0",
+    "pretty-data": "^0.40.0",
+    "rss": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.25.9",
+    "eslint": "^8.26.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

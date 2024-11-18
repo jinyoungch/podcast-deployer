@@ -1,6 +1,8 @@
 # rss-deployer.lambda
 
-An AWS Lambda function that generates an RSS feed for podcast distribution. Note: this tool was written specifically for Apple Podcasts.
+An AWS Lambda function that generates an RSS feed for podcast distribution. 
+
+Note: this tool was written specifically for Apple Podcasts, but can be extended to be compatible with other platforms.
 
 ## Instructions
 
@@ -23,3 +25,7 @@ root
 20241117-Episode 1.mp3
 20241117-Episode 1.html
 ```
+
+2. Initialise a Lambda function, and upload the built version of this Lambda's handler to the AWS console.
+
+3. To be continued!

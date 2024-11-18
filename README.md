@@ -13,7 +13,7 @@ For this function to execute successfully, the files need to be saved in the fol
 ```
 root of s3 bucket:
 
-<Date_Of_Publication>-<Title_Of_Episode>.html
+<Date_Of_Publication>-<Title_Of_Episode>.mp3
 <Date_Of_Publication>-<Title_Of_Episode>.html
 ```
 
@@ -25,6 +25,8 @@ root
 20241117-Episode 1.mp3
 20241117-Episode 1.html
 ```
+
+Note: Apple Podcasts supports the MP3 file format, as well as M4A, MOV, MP4, M4V, and PDF.
 
 2. Initialise a Lambda function, and upload the built version of this Lambda's handler to the AWS console.
 

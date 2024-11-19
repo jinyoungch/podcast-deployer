@@ -1,12 +1,12 @@
-# rss-deployer.lambda
+# podcast-deployer.lambda
 
-An AWS Lambda function that generates an RSS feed for podcast distribution. 
+An AWS Lambda function that scans an Amazon S3 bucket and generates an RSS feed for podcast distribution. 
 
-Note: this tool was written specifically for Apple Podcasts, but can be extended to be compatible with other platforms.
+Note: this tool was written specifically for Apple Podcasts, but is extensible to other platforms.
 
 ## Instructions
 
-1. Initialise an AWS S3 bucket, where you'll save your podcast episodes' audio file and its corresponding episode-specific description file (in HTML).
+### 1. Initialise an AWS S3 bucket, where you'll save your podcast episodes' audio file and its corresponding episode-specific description file (in HTML).
 
 For this function to execute successfully, the files need to be saved in the following format:
 
@@ -28,6 +28,6 @@ root
 
 Note: Apple Podcasts supports the MP3 file format, as well as M4A, MOV, MP4, M4V, and PDF.
 
-2. Initialise a Lambda function, and upload the built version of this Lambda's handler to the AWS console.
+### 2. Initialise a Lambda function, and upload the built version of this Lambda's handler to the AWS console.
 
-3. To be continued!
+### 3. To be continued!

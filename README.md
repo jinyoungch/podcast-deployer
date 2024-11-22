@@ -3,6 +3,7 @@
 An AWS Lambda function that scans an Amazon S3 bucket and generates an RSS feed for podcast distribution.
 
 Note: this tool was written specifically for Apple Podcasts, but is extensible to other platforms.
+All Apple Podcasts-specific logic was based off of official guidelines: https://help.apple.com/itc/podcasts_connect/#/itcb54353390.
 
 ## Instructions
 
@@ -28,6 +29,6 @@ root
 
 Note: Apple Podcasts supports the MP3 file format, as well as M4A, MOV, MP4, M4V, and PDF.
 
-### 2. Initialise a Lambda function, and upload the built version of this Lambda's handler to the AWS console.
+### 2. Initialise a Lambda function, and upload the built version (ie dist/) of this Lambda's handler to the AWS console.
 
 ### 3. To be continued!

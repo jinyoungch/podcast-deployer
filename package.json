@@ -4,12 +4,14 @@
   "description": "A Lambda function to deploy an RSS feed to AWS S3 for podcast distribution",
   "main": "src/index.mts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "bin/build.sh",
     "compile": "tsc",
     "format:code": "prettier --write --cache --no-editorconfig .",
     "format:code:typescript": "prettier --write --cache --no-editorconfig \"**/*.{cts,ts,mts}\"",
     "lint:typescript": "echo Linting all TypeScript... && eslint --ext cts,ts,mts --max-warnings 0 --cache --cache-location .eslintcache --cache-strategy content .",
-    "validate:formatting": "prettier --check --cache --no-editorconfig ."
+    "validate:formatting": "prettier --check --cache --no-editorconfig .",
+    "start": "npm-run-all --silent build start:lambda",
+    "start:lambda": "sam local invoke --event ./fixtures/aws-event-sample.json --env-vars env.json && sam local invoke --event ./fixtures/aws-event-sample-v2.json --env-vars env.json"
   },
   "keywords": [],
   "author": "Jin Young Choi",

@@ -2,7 +2,18 @@ import AWS from "aws-sdk";
 import { S3 } from "aws-sdk";
 import RSS from "rss";
 import { pd } from "pretty-data";
-import { awsRegion, podcastUrl, s3BucketName, showTitle, showDescription, showHostName, showHostEmail, showCoverArtURL, iTunesCategory, iTunesSubCategory  } from "./constants/metadata";
+import {
+  awsRegion,
+  podcastUrl,
+  s3BucketName,
+  showTitle,
+  showDescription,
+  showHostName,
+  showHostEmail,
+  showCoverArtURL,
+  iTunesCategory,
+  iTunesSubCategory,
+} from "./constants/metadata";
 import { ParsedFile } from "./types/podcast";
 
 AWS.config.update({ region: awsRegion });
@@ -216,4 +227,4 @@ async function uploadRSSFeedToS3(xml: string): Promise<void> {
   console.log(
     `Successfully uploaded feed to ${uploadParams.Bucket}/${uploadParams.Key}. ✅`,
   );
-};
+}

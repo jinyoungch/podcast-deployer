@@ -1,6 +1,6 @@
 # podcast-deployer.lambda
 
-An AWS Lambda function that scans an Amazon S3 bucket and generates an RSS feed for podcast distribution. 
+An AWS Lambda function that scans an Amazon S3 bucket and generates an RSS feed for podcast distribution.
 
 Note: this tool was written specifically for Apple Podcasts, but is extensible to other platforms.
 

@@ -2,16 +2,17 @@ import AWS from "aws-sdk";
 import { S3 } from "aws-sdk";
 import RSS from "rss";
 import { pd } from "pretty-data";
+import { awsRegion, podcastUrl, s3BucketName, showTitle, showDescription, showHostName, showHostEmail, showCoverArtURL, iTunesCategory, iTunesSubCategory  } from "./constants/metadata";
+import { ParsedFile } from "./types/podcast";
 
-AWS.config.update({ region: "us-east-1" });
+AWS.config.update({ region: awsRegion });
 
 const s3 = new AWS.S3();
 
 const listObjectsV2Param: S3.ListObjectsV2Request = {
-  Bucket: "sumofallpeople.com",
+  Bucket: s3BucketName,
 };
 
-const podcastURL = "http://sumofallpeople.com";
 const maxItemsInRSSFeed = 2000; // Apple Podcasts cap (2000 items); need to double check!
 
 let podcastFiles: S3.Object[] = [];
@@ -120,16 +121,11 @@ function filePathToTitle(path: string): string {
 
 /** Generate RSS Feed **/
 async function generateRSSFeed(): Promise<string> {
-  const showDescription =
-    "'You are the sum of five people you surround yourself with': an all too common saying that underscores the impact a select group of people can have on one's life.\n\n In Sum Of All People, Jin Young invites a wide array of individuals who have left an imprint on his life and aims to expand on the aforementioned phrase; for it is the sum total of all people that, in ways big or small, hold the potential to shape the trajectory of each of our lives.";
-  const showHostName = "Jin Young Choi";
-  const showHostEmail = "jinyoungchoi@alumni.emory.edu";
-  const coverArtURL = "http://sumofallpeople.com/media/SOAP.png";
   const feed = new RSS({
-    title: "Sum Of All People",
+    title: showTitle,
     description: showDescription,
-    feed_url: `${podcastURL}/rss.xml`,
-    site_url: podcastURL,
+    feed_url: `${podcastUrl}/rss.xml`,
+    site_url: podcastUrl,
     webMaster: showHostName,
     copyright: "Sum Of All People 2024",
     language: "en",
@@ -141,8 +137,8 @@ async function generateRSSFeed(): Promise<string> {
     custom_elements: [
       {
         "itunes:category": [
-          { _attr: { text: "Society &amp; Culture" } },
-          { "itunes:category": { _attr: { text: "Personal Journals" } } },
+          { _attr: { text: iTunesCategory } },
+          { "itunes:category": { _attr: { text: iTunesSubCategory } } },
         ],
       },
       {
@@ -154,7 +150,7 @@ async function generateRSSFeed(): Promise<string> {
       {
         "itunes:image": {
           _attr: {
-            href: coverArtURL,
+            href: showCoverArtURL,
           },
         },
       },
@@ -166,7 +162,7 @@ async function generateRSSFeed(): Promise<string> {
   for (let i = 0; i < podcastFiles.length && i < maxItemsInRSSFeed; i++) {
     const file = podcastFiles[i];
     const { date, title } = parseAudioFile(file) as ParsedFile;
-    const url = `${podcastURL}/${file.Key}`;
+    const url = `${podcastUrl}/${file.Key}`;
 
     // Grab individual descriptions for each episode (in HTML)
     const htmlFileName = file.Key.replace(".mp3", ".html");
@@ -181,9 +177,9 @@ async function generateRSSFeed(): Promise<string> {
       guid: url,
     });
   }
-
-  console.log("RSS Feed generated successfully. 🥳");
-  return pd.xml(feed.xml());
+  const formattedXML = pd.xml(feed.xml());
+  console.log("RSS feed generated successfully. 🥳");
+  return formattedXML;
 }
 
 /** Retrieve the HTML content for a given episode's description **/
@@ -191,7 +187,7 @@ async function getHTMLDescription(htmlFileName: string): Promise<string> {
   try {
     const htmlFile = await s3
       .getObject({
-        Bucket: "sumofallpeople.com",
+        Bucket: s3BucketName,
         Key: htmlFileName,
       })
       .promise();
@@ -210,7 +206,7 @@ async function getHTMLDescription(htmlFileName: string): Promise<string> {
 /* Additional Note: To generate other platform-specific RSS feed, modify below logic accordingly 💅🏼*/
 async function uploadRSSFeedToS3(xml: string): Promise<void> {
   const uploadParams: S3.PutObjectRequest = {
-    Bucket: "sumofallpeople.com",
+    Bucket: s3BucketName,
     Key: "rss.xml",
     Body: xml,
     ContentType: "application/rss+xml",
@@ -220,10 +216,4 @@ async function uploadRSSFeedToS3(xml: string): Promise<void> {
   console.log(
     `Successfully uploaded feed to ${uploadParams.Bucket}/${uploadParams.Key}. ✅`,
   );
-}
-
-/** Type Definitions */
-interface ParsedFile extends S3.Object {
-  date: string;
-  title: string;
-}
+};

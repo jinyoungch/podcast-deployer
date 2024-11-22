@@ -3,7 +3,16 @@
 An AWS Lambda function that scans an Amazon S3 bucket and generates an RSS feed for podcast distribution.
 
 Note: this tool was written specifically for Apple Podcasts, but is extensible to other platforms.
-All Apple Podcasts-specific logic was based off of official guidelines: https://help.apple.com/itc/podcasts_connect/#/itcb54353390.
+
+All Apple Podcasts-specific logic was based off of [official guidelines](https://help.apple.com/itc/podcasts_connect/#/itcb54353390).
+
+Update (11/22/2024): Further research on the cost-benefit of self-hosting podcasts vs using a dedicated hosting platform made me realise that it's better to go with the latter when scalability/outsized bandwidth is concerned.
+
+This project is therefore abandoned, but forks are welcome for those who still wish to self-host.
+
+Links:
+[Is anyone using Amazon S3 to host a podcast?
+](https://www.reddit.com/r/podcasting/comments/5y2bjs/is_anyone_using_amazon_s3_to_host_a_podcast/)
 
 ## Instructions
 

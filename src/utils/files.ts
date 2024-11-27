@@ -40,24 +40,20 @@ export function parseMetaDataFromAudioFileName(
   return { ...file, date, title };
 }
 
-/** Process and Filter Files **/
 export function processFiles(podcastFiles): void {
-  // remove duplicates
   podcastFiles = podcastFiles.filter(
     (item, index, array) =>
       array.findIndex((i) => i.Key === item.Key) === index,
   );
 
-  // filter for mp3 files  (ie. exclude non audio files)
   podcastFiles = podcastFiles.filter((file) => file.Key?.endsWith(".mp3"));
 
-  // parse files and filter by valid dates
   podcastFiles = podcastFiles
     .map(parseMetaDataFromAudioFileName)
     .filter((file) => file !== null && file.date !== null) as ParsedFile[];
 
-  // sort files by date in reverse chronological order (for episodic shows)
-  // note: for serial shows, inverse this logic to render files in chronological order
+  // sort files by date in reverse chronological order (for episodic shows) 🪄
+  // note: for serial shows, inverse this logic to render files in chronological order 
   podcastFiles.sort((a, b) =>
     (a as ParsedFile).date < (b as ParsedFile).date ? 1 : -1,
   );
